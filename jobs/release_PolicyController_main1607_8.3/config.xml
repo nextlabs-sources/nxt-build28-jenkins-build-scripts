@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Release Build of PolicyController 8.3 - builds code from Bitbucket: &#xd;
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- &lt;b&gt;repo:&lt;/b&gt; &lt;a href=&quot;https://bitbucket.org/nxtlbs-devops/fate&quot; target=&quot;_blank&quot;&gt;https://bitbucket.org/nxtlbs-devops/fate&lt;/a&gt;&#xd;
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- &lt;b&gt;branch:&lt;/b&gt; origin/release/main1607_8.3_pc</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>15</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.28"/>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>git@bitbucket.org:nxtlbs-devops/fate.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/release/main1607_8.3_pc</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CleanBeforeCheckout/>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>export NLEXTERNALDIR=E:/P4/external
+export NLEXTERNALDIR2=E:/P4/main_external
+export JAVA_HOME=${NLEXTERNALDIR2}/j2sdk/jdk1.7.0_71
+
+export PUBLISH_TO_BODA=1
+
+cd ${WORKSPACE}/
+source ./setEnv
+./buildRelease</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.18">
+      <recipients>hudson-build@nextlabs.com Alan.Morgan@nextlabs.com Bard.Zhang@nextlabs.com Tonny.He@nextlabs.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper plugin="preSCMbuildstep@0.3">
+      <buildSteps>
+        <hudson.tasks.Shell>
+          <command># Kill all running oacrmonitor processes.
+echo &quot;INFO: Killing oacrmonitor processes.&quot;
+C:/Windows/system32/taskkill.exe -F -IM oacrmonitor.exe || true</command>
+        </hudson.tasks.Shell>
+      </buildSteps>
+      <failOnError>false</failOnError>
+    </org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper>
+  </buildWrappers>
+</project>

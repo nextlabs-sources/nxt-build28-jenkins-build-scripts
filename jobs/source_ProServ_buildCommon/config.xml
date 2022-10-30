@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Get content of //depot/ProfessionalServices/buildCommon. This code is used by other Jenkins projects. It should be updated hourly.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>30</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.28"/>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.36">
+    <configVersion>2</configVersion>
+    <p4User>nxbuild</p4User>
+    <p4Passwd>0f0kqlwaxhEd4Z67fGvDTRFHyxR8/A==</p4Passwd>
+    <p4Port>nxt-p4s02.nextlabs.com:1666</p4Port>
+    <p4Client>jenkins_nb28_source_proserv_buildcommon</p4Client>
+    <projectPath>//depot/ProfessionalServices/buildCommon/... //default/...</projectPath>
+    <projectOptions>noallwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <clientOwner></clientOwner>
+    <p4SysDrive>C:\</p4SysDrive>
+    <p4SysRoot>C:\Windows</p4SysRoot>
+    <p4Tool>P4-2010</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>false</exposeP4Passwd>
+    <wipeBeforeBuild>false</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>false</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>unix</lineEndValue>
+    <useViewMask>false</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>@hourly</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>E:\P4\ProServ_buildCommon\buildCommon</customWorkspace>
+  <builders/>
+  <publishers>
+    <hudson.plugins.perforce.PerforceTagNotifier plugin="perforce@1.3.36">
+      <rawLabelName>${BUILD_TAG}_nb28</rawLabelName>
+      <rawLabelOwner></rawLabelOwner>
+      <rawLabelDesc></rawLabelDesc>
+      <onlyOnSuccess>false</onlyOnSuccess>
+    </hudson.plugins.perforce.PerforceTagNotifier>
+    <hudson.tasks.Mailer plugin="mailer@1.18">
+      <recipients>hudson-build@nextlabs.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Release Build of Fate Main/Master branch - builds code from Bitbucket:&#xd;
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- &lt;b&gt;repo:&lt;/b&gt; &lt;a href=&quot;https://bitbucket.org/nxtlbs-devops/fate&quot; target=&quot;_blank&quot;&gt;https://bitbucket.org/nxtlbs-devops/fate&lt;/a&gt;&#xd;
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- &lt;b&gt;branch:&lt;/b&gt; origin/master</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Read:sfang</permission>
+      <permission>hudson.model.Item.Read:jfang</permission>
+      <permission>hudson.model.Item.Read:mxu</permission>
+      <permission>hudson.model.Item.Read:iqin</permission>
+      <permission>hudson.model.Item.Read:ezhu</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>15</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.28"/>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>git@bitbucket.org:nxtlbs-devops/fate.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CleanBeforeCheckout/>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>export NLEXTERNALDIR=E:/P4/external
+export NLEXTERNALDIR2=E:/P4/main_external
+export JAVA_HOME=${NLEXTERNALDIR2}/j2sdk/jdk1.7.0_71
+
+export PUBLISH_TO_BODA=1
+
+cd ${WORKSPACE}/
+source ./setEnv
+./buildRelease
+
+# #####################
+# cd ${WORKSPACE}/
+# source ./setEnv
+# rm -rf bin/installer/*
+# rm -f ./modbuildRelease
+# cp ../buildRelease ./modbuildRelease
+# chmod u+x ./modbuildRelease
+# ./modbuildRelease
+# source ./build.config
+# cd install/pcoe ; rm -rf build installer
+# make OFFICIALCERT=1 BUILDTYPE=release VERSION_BUILD=${BUILD_NUMBER}
+# cd ${WORKSPACE}/
+# make -f build/Makefile.publish TYPE=release pcoe archive archive_install_small
+# #####################</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.18">
+      <recipients>hudson-build@nextlabs.com Tonny.He@nextlabs.com Raymond.Zeng@nextlabs.com Kevin.Zhou@nextlabs.com Wutao.Wu@nextlabs.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper plugin="preSCMbuildstep@0.3">
+      <buildSteps>
+        <hudson.tasks.Shell>
+          <command># Kill all running oacrmonitor processes.
+echo &quot;INFO: Killing oacrmonitor processes.&quot;
+C:/Windows/system32/taskkill.exe -F -IM oacrmonitor.exe || true</command>
+        </hudson.tasks.Shell>
+      </buildSteps>
+      <failOnError>false</failOnError>
+    </org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper>
+  </buildWrappers>
+</project>

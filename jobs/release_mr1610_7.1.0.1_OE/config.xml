@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Release build of hotfix for OE 7.1.0.1&#xd;
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- builds code from //depot/Fate/release/mr1610_7.1.0.1_OE</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.28"/>
+  </properties>
+  <scm class="hudson.plugins.perforce.PerforceSCM" plugin="perforce@1.3.36">
+    <configVersion>2</configVersion>
+    <p4User>nxbuild</p4User>
+    <p4Passwd>0f0kqlwaxhEd4Z67fGvDTRFHyxR8/A==</p4Passwd>
+    <p4Port>nxt-p4s02.nextlabs.com:1666</p4Port>
+    <p4Client>jenkins_nb28_release_mr1610_7.1.0.1_OE</p4Client>
+    <projectPath>//depot/Fate/release/mr1610_7.1.0.1_OE/... //default/...</projectPath>
+    <projectOptions>noallwrite clobber nocompress unlocked nomodtime rmdir</projectOptions>
+    <clientOwner></clientOwner>
+    <p4SysDrive>C:\</p4SysDrive>
+    <p4SysRoot>C:\Windows</p4SysRoot>
+    <p4Tool>P4-2010</p4Tool>
+    <useClientSpec>false</useClientSpec>
+    <useStreamDepot>false</useStreamDepot>
+    <forceSync>false</forceSync>
+    <alwaysForceSync>false</alwaysForceSync>
+    <dontUpdateServer>false</dontUpdateServer>
+    <disableAutoSync>false</disableAutoSync>
+    <disableChangeLogOnly>false</disableChangeLogOnly>
+    <disableSyncOnly>false</disableSyncOnly>
+    <showIntegChanges>false</showIntegChanges>
+    <useOldClientName>false</useOldClientName>
+    <createWorkspace>true</createWorkspace>
+    <updateView>true</updateView>
+    <dontRenameClient>false</dontRenameClient>
+    <updateCounterValue>false</updateCounterValue>
+    <dontUpdateClient>false</dontUpdateClient>
+    <exposeP4Passwd>true</exposeP4Passwd>
+    <wipeBeforeBuild>true</wipeBeforeBuild>
+    <quickCleanBeforeBuild>false</quickCleanBeforeBuild>
+    <restoreChangedDeletedFiles>false</restoreChangedDeletedFiles>
+    <wipeRepoBeforeBuild>false</wipeRepoBeforeBuild>
+    <firstChange>-1</firstChange>
+    <fileLimit>0</fileLimit>
+    <excludedFilesCaseSensitivity>true</excludedFilesCaseSensitivity>
+    <slaveClientNameFormat>${basename}-${hash}</slaveClientNameFormat>
+    <lineEndValue>unix</lineEndValue>
+    <useViewMask>false</useViewMask>
+    <useViewMaskForPolling>true</useViewMaskForPolling>
+    <useViewMaskForSyncing>false</useViewMaskForSyncing>
+    <useViewMaskForChangeLog>false</useViewMaskForChangeLog>
+    <pollOnlyOnMaster>false</pollOnlyOnMaster>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>export NLEXTERNALDIR=E:/P4/external
+export NLEXTERNALDIR2=E:/P4/main_external
+export JAVA_HOME=${NLEXTERNALDIR2}/j2sdk/jdk1.7.0_71
+
+cd ${WORKSPACE}/
+source ./setEnv
+./buildRelease</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.perforce.PerforceTagNotifier plugin="perforce@1.3.36">
+      <rawLabelName>${BUILD_TAG}_nb28</rawLabelName>
+      <rawLabelOwner></rawLabelOwner>
+      <rawLabelDesc></rawLabelDesc>
+      <onlyOnSuccess>true</onlyOnSuccess>
+    </hudson.plugins.perforce.PerforceTagNotifier>
+    <hudson.tasks.Mailer plugin="mailer@1.19">
+      <recipients>hudson-build@nextlabs.com Tonny.He@nextlabs.com Leo.Ge@nextlabs.com Bard.Zhang@nextlabs.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper plugin="preSCMbuildstep@0.3">
+      <buildSteps>
+        <hudson.tasks.Shell>
+          <command># Kill all running oacrmonitor processes.
+echo &quot;INFO: Killing oacrmonitor processes.&quot;
+C:/Windows/system32/taskkill.exe -F -IM oacrmonitor.exe || true</command>
+        </hudson.tasks.Shell>
+      </buildSteps>
+      <failOnError>false</failOnError>
+    </org.jenkinsci.plugins.preSCMbuildstep.PreSCMBuildStepsWrapper>
+  </buildWrappers>
+</project>

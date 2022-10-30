@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<user>
+  <fullName>Michelle (Jinli) Xu</fullName>
+  <properties>
+    <jenkins.security.ApiTokenProperty>
+      <apiToken>{AQAAABAAAAAwwQH8KCYGeJ7kPm34vrYqPtgBO6mKJx8zeEgY7nSls+XwHWRQEfs0WREM4lDyuhDpsc/JwRs67ZFoFkS9fKAUOg==}</apiToken>
+    </jenkins.security.ApiTokenProperty>
+    <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@2.1.13">
+      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
+    </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
+    <hudson.model.MyViewsProperty>
+      <views>
+        <hudson.model.AllView>
+          <owner class="hudson.model.MyViewsProperty" reference="../../.."/>
+          <name>All</name>
+          <filterExecutors>false</filterExecutors>
+          <filterQueue>false</filterQueue>
+          <properties class="hudson.model.View$PropertyList"/>
+        </hudson.model.AllView>
+      </views>
+    </hudson.model.MyViewsProperty>
+    <hudson.model.PaneStatusProperties>
+      <collapsed/>
+    </hudson.model.PaneStatusProperties>
+    <hudson.plugins.perforce.PerforceUserProperty plugin="perforce@1.3.36"/>
+    <hudson.search.UserSearchProperty>
+      <insensitiveSearch>false</insensitiveSearch>
+    </hudson.search.UserSearchProperty>
+    <jenkins.security.LastGrantedAuthoritiesProperty>
+      <roles>
+        <string>CDC RMC QA</string>
+        <string>sc-scrumteam</string>
+        <string>CDC VMCREATE Manager</string>
+        <string>CDC VMPOWER Manager</string>
+        <string>CDC Remote Access Group</string>
+        <string>CDC Build Group</string>
+        <string>CDC Qatd</string>
+        <string>CDC Leader</string>
+        <string>CDC All</string>
+        <string>Release</string>
+        <string>authenticated</string>
+      </roles>
+      <timestamp>1494988234649</timestamp>
+    </jenkins.security.LastGrantedAuthoritiesProperty>
+    <org.jenkinsci.plugins.displayurlapi.user.PreferredProviderUserProperty plugin="display-url-api@2.0">
+      <providerId>default</providerId>
+    </org.jenkinsci.plugins.displayurlapi.user.PreferredProviderUserProperty>
+    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.20">
+      <emailAddress>Michelle.Xu@nextlabs.com</emailAddress>
+    </hudson.tasks.Mailer_-UserProperty>
+  </properties>
+</user>
